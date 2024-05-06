@@ -69,7 +69,7 @@ namespace Navigator
         private void Form2_Load(object sender, EventArgs e)
                 {
 
-                    string[] filePaths = System.IO.Directory.GetFiles(@"D:\memes\test\");
+                    string[] filePaths = System.IO.Directory.GetFiles(@"E:\camerastuff\temp\");
                     Console.WriteLine($"{filePaths}");
 
                     double count = 0.0;
