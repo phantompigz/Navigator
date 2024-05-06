@@ -69,7 +69,7 @@ namespace Navigator
         private void Form2_Load(object sender, EventArgs e)
                 {
 
-                    string[] filePaths = System.IO.Directory.GetFiles(@"E:\camerastuff\temp\");
+                    string[] filePaths = System.IO.Directory.GetFiles(@"D:\memes\test\");
                     Console.WriteLine($"{filePaths}");
 
                     double count = 0.0;
@@ -87,7 +87,6 @@ namespace Navigator
                             picture.Name = "pictureBox";
                             picture.Size = new Size(400, 400);
                             picture.Location = new Point(x, y);
-                            picture.Image = FixedSize(path, 400, 400);
                             Thread thread = new Thread(() => loadImage(picture, path));
                             thread.Start();
 
