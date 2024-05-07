@@ -70,5 +70,13 @@ namespace Navigator
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form3 f3 = new Form3();
+            f3.ShowDialog();
+            this.Close();
+        }
     }
 }

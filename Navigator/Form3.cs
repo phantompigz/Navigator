@@ -18,10 +18,10 @@ using System.IO;
 namespace Navigator
 {
 
-    public partial class Form2 : Form
+    public partial class Form3 : Form
     {
 
-        public Form2()
+        public Form3()
         {
             InitializeComponent();
 
@@ -65,45 +65,53 @@ namespace Navigator
         private void loadImage(PictureBox pic, string path)
         {
             pic.Image = FixedSize(path, 400, 400); // get image call, idk
+        }
+
+        
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            string[] directories = Directory.GetDirectories(@"E:\camerastuff\");
+            string[] filePaths = System.IO.Directory.GetFiles(@"E:\camerastuff\");
+
+
+            for (int i = 0; i < directories.Length; i++)
+            {
+                
             }
 
-        private void Form2_Load(object sender, EventArgs e)
+            double count = 0.0;
+
+            for (int i = 0; i < directories.Length; i++)
+            {
+                int y = (int)(410.0 + (400.0 * Math.Floor((count - 5.0) / 5.0)));
+                int x = (int)(410.0 + (400.0 * (count % 5.0)) - 400.0);
+
+                string path = $@"E:\camerastuff\{directories[i]}\";
+
+                if (path.Contains(".JPG") || path.Contains(".jpg") || path.Contains(".png") || path.Contains(".PNG"))
                 {
-                    string[] directories = Directory.GetDirectories(@"E:\camerastuff\");
-                    string[] filePaths = System.IO.Directory.GetFiles(@"E:\camerastuff\");
-                    Console.WriteLine($"{filePaths}");
-                    double count = 0.0;
+                    var picture = new PictureBox();
+                    picture.Name = "pictureBox";
+                    picture.Size = new Size(400, 400);
+                    picture.Location = new Point(x, y);
+                    Thread thread = new Thread(() => loadImage(picture, path));
+                    thread.Start();
 
-                    for (int i = 0; i < filePaths.Length; i++)
+                    Console.WriteLine($"Image: {count}");
+
+                    picture.Click += (sender1, args) =>
                     {
-                        int y = (int)(410.0 + (400.0 * Math.Floor((count - 5.0) / 5.0)));
-                        int x = (int)(410.0 + (400.0 * (count % 5.0)) - 400.0);
+                        Process.Start(path);
+                    };
 
-                        string path = filePaths[i];
-
-                        if (path.Contains(".JPG") || path.Contains(".jpg")|| path.Contains(".png") || path.Contains(".PNG"))
-                        {
-                            var picture = new PictureBox();
-                            picture.Name = "pictureBox";
-                            picture.Size = new Size(400, 400);
-                            picture.Location = new Point(x, y);
-                            Thread thread = new Thread(() => loadImage(picture, path));
-                            thread.Start();
-
-                            Console.WriteLine($"Image: {count}");
-
-                            picture.Click += (sender1, args) =>
-                            {
-                                Process.Start(path);
-                            };
-
-                            this.Controls.Add(picture);
-                            count += 1.0;
-                        }
-
-                    }
-
+                    this.Controls.Add(picture);
+                    count += 1.0;
                 }
+
+            }
+
+        }
     }
 }
 
